@@ -32,7 +32,7 @@ public class ClientService {
     }
 
     public void delete(Long id) {
-        clientRepository.deleteById(id);
+        clientRepository.delete(id);
     }
 
     public Client update(Long id, Client client){

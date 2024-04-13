@@ -46,6 +46,9 @@ public class Address {
     @JsonIgnore
     private Client client;
 
+    @Column(name = "status")
+    private Boolean status = true;
+
 
 
 }

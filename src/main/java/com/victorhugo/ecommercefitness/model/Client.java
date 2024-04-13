@@ -37,7 +37,7 @@ public class Client {
     private String password;
 
     @Column(name = "status", nullable = false)
-    private Boolean status;
+    private Boolean status = true;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
