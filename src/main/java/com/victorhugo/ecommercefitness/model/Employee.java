@@ -1,5 +1,7 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.victorhugo.ecommercefitness.enums.Employee.EmployeeGender;
+import com.victorhugo.ecommercefitness.enums.Employee.EmployeePosition;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -27,7 +29,8 @@ public class Employee {
     private String name;
 
     @Column(name = "sexo", nullable = false, length = 1)
-    private char gender;
+    @Enumerated(EnumType.STRING)
+    private EmployeeGender gender;
 
     @Column(name = "data_nascimento", nullable = false)
     private Date birthDate;
@@ -45,7 +48,8 @@ public class Employee {
     private String password;
 
     @Column(name = "funcao", nullable = false, length = 40)
-    private String position;
+    @Enumerated(EnumType.STRING)
+    private EmployeePosition position;
 
     @Column(name = "status", nullable = false)
     private boolean status = true;
