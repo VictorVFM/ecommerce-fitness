@@ -1,16 +1,15 @@
 package com.victorhugo.ecommercefitness.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Endereco")
 @Getter
@@ -24,7 +23,7 @@ public class Address {
     private Integer id;
 
     @Column(name = "cep", length = 8)
-    private String cep;
+    private String zipCode;
 
     @Column(name = "estado", nullable = false, length = 2)
     private String state;
@@ -35,13 +34,16 @@ public class Address {
     @Column(name = "bairro", nullable = false, length = 50)
     private String neighborhood;
 
-    @Column(name = "logradouro", nullable = false, length = 50)
+    @Column(name = "rua", nullable = false, length = 50)
     private String street;
 
     @Column(name = "numero", length = 6)
     private String number;
 
-    @Column(name = "id_Cliente", nullable = false)
-    private Long id_Client;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Cliente")
+    private Client client;
+
+
 
 }

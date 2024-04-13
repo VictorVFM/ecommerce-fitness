@@ -30,7 +30,7 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<Client> create(@RequestBody Client client) {
-        client = clientService.save(client);
+        client = clientService.create(client);
         return ResponseEntity.status(HttpStatus.CREATED).body(client);
     }
 
