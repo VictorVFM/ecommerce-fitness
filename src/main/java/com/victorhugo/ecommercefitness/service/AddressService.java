@@ -28,7 +28,14 @@ public class AddressService {
     }
 
     public List<Address> findByClient(Long id) {
-        return addressRepository.findByClientIdAndStatusTrue(id);
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isPresent()) {
+            return addressRepository.findByClientIdAndStatusTrue(id);
+        } else {
+            throw new ResourceNotFoundException(id, "Client");
+        }
+
+
     }
     public Address create(Long clientId, Address address) {
         Optional<Client> optionalClient = clientRepository.findById(clientId);
@@ -37,7 +44,7 @@ public class AddressService {
             address.setClient(user);
             return addressRepository.save(address);
         } else {
-            throw new RuntimeException("User not found with ID: " + clientId);
+            throw new ResourceNotFoundException(clientId,"Client");
         }
     }
 

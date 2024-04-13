@@ -34,7 +34,7 @@ public class ClientService {
     public void delete(Long id) {
         Optional<Client> obj = clientRepository.findById(id);
         if (obj.isPresent()) {
-            clientRepository.delete(obj.get());
+            clientRepository.delete(id);
         } else {
             throw new ResourceNotFoundException(id,"Client");
         }

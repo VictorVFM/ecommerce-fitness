@@ -2,6 +2,7 @@ package com.victorhugo.ecommercefitness.service;
 
 import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.repositories.EmployeeRepository;
+import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class EmployeeService {
 
     public Employee findById(Long id) {
         Optional<Employee> obj = employeeRepository.findById(id);
-        return obj.orElseThrow(() -> new RuntimeException("Employee not found"));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Employee"));
     }
 
     public Employee create(Employee employee) {
@@ -31,17 +32,24 @@ public class EmployeeService {
     }
 
     public void delete(Long id) {
+        Optional<Employee> obj = employeeRepository.findById(id);
+        if(obj.isPresent()){
         employeeRepository.delete(id);
+        }else{
+            throw  new ResourceNotFoundException(id,"Employee");
+        }
     }
 
     public Employee update(Long id, Employee employee) {
-        try {
-            Employee entity = employeeRepository.getOne(id);
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if(optionalEmployee.isPresent()){
+            Employee entity = optionalEmployee.get();
             updateData(entity, employee);
             return employeeRepository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new RuntimeException("Employee not found with ID: " + id);
+        }else {
+            throw new ResourceNotFoundException(id,"Employee");
         }
+
     }
 
     private void updateData(Employee entity, Employee newEntity) {

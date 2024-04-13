@@ -1,7 +1,9 @@
 package com.victorhugo.ecommercefitness.service;
 
+import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.model.Supplier;
 import com.victorhugo.ecommercefitness.repositories.SupplierRepository;
+import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class SupplierService {
 
     public Supplier findById(Long id) {
         Optional<Supplier> obj = supplierRepository.findById(id);
-        return obj.orElseThrow(() -> new RuntimeException("Supplier not found"));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Supplier"));
     }
 
     public Supplier create(Supplier supplier) {
@@ -29,16 +31,22 @@ public class SupplierService {
     }
 
     public void delete(Long id) {
+        Optional<Supplier> obj = supplierRepository.findById(id);
+        if(obj.isPresent()){
         supplierRepository.delete(id);
+        }else{
+            throw new ResourceNotFoundException(id,"Supplier");
+        }
     }
 
     public Supplier update(Long id, Supplier supplier) {
-        try {
-            Supplier entity = supplierRepository.getOne(id);
+        Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
+        if(optionalSupplier.isPresent()){
+            Supplier entity = optionalSupplier.get();
             updateData(entity, supplier);
             return supplierRepository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new RuntimeException("Supplier not found with ID: " + id);
+        }else{
+            throw new ResourceNotFoundException(id,"Supplier");
         }
     }
 
