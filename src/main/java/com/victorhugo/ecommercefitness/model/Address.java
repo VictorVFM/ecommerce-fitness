@@ -1,5 +1,6 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -40,8 +41,9 @@ public class Address {
     @Column(name = "numero", length = 6)
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_Cliente")
+    @JsonIgnore
     private Client client;
 
 

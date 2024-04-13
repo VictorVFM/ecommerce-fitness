@@ -39,6 +39,7 @@ public class Client {
     @Column(name = "status", nullable = false)
     private Boolean status;
 
-
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Address> addresses = new ArrayList<>();
 
 }

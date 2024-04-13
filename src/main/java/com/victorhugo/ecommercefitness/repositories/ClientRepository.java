@@ -12,7 +12,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Client c SET c.status = false WHERE c.id = ?1")
-    void deleteById(Long clientId);
+    void delete(Long clientId);
 
 
     List<Client> findByStatusTrue();

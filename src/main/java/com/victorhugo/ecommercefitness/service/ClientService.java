@@ -26,12 +26,12 @@ public class ClientService {
         return obj.orElseThrow(() -> new RuntimeException("Client not found"));
     }
 
-    @Transactional
+
     public Client create(Client client) {
         return clientRepository.save(client);
     }
 
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         clientRepository.deleteById(id);
     }
 

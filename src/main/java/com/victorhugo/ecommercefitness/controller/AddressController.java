@@ -30,9 +30,9 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> findById(@PathVariable Long id) {
-        Optional<Address> addressOptional = addressService.findById(id);
-        return addressOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<List<Address>> findById(@PathVariable Long id) {
+        List<Address> address = addressService.findByClient(id);
+        return ResponseEntity.ok().body(address);
     }
 
     @DeleteMapping("/{id}")

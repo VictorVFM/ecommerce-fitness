@@ -34,8 +34,8 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public Optional<Address> findById(Long id) {
-        return addressRepository.findById(id);
+    public List<Address> findByClient(Long id) {
+        return addressRepository.findByClientId(id);
     }
 
     public void delete(Long id) {
