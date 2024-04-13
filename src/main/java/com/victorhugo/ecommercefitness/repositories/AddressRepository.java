@@ -11,10 +11,12 @@ import java.util.List;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    List<Address> findByClientId(Long id);
     @Transactional
     @Modifying
     @Query("UPDATE Address a SET a.status = false WHERE a.id = ?1")
     void delete(Long addressId);
 
+    List<Address> findByClientIdAndStatusTrue(Long id);
+
+    List<Address> findByStatusTrue();
 }

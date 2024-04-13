@@ -23,11 +23,11 @@ public class AddressService {
 
 
     public List<Address> findAll() {
-        return addressRepository.findAll();
+        return addressRepository.findByStatusTrue();
     }
 
     public List<Address> findByClient(Long id) {
-        return addressRepository.findByClientId(id);
+        return addressRepository.findByClientIdAndStatusTrue(id);
     }
     public Address create(Long clientId, Address address) {
         Optional<Client> optionalClient = clientRepository.findById(clientId);
