@@ -4,6 +4,7 @@ import com.victorhugo.ecommercefitness.model.Address;
 import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.repositories.AddressRepository;
 import com.victorhugo.ecommercefitness.repositories.ClientRepository;
+import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,16 +42,22 @@ public class AddressService {
     }
 
     public void delete(Long id) {
-        addressRepository.delete(id);
+        Optional<Address> obj = addressRepository.findById(id);
+        if (obj.isPresent()) {
+            addressRepository.delete(obj.get());
+        } else {
+            throw new ResourceNotFoundException(id,"Address");
+        }
     }
 
-    public Address update(Long id, Address address) {
-        try {
-            Address entity = addressRepository.getReferenceById(id);
+    public Address update(Long id, Address address){
+        Optional<Address> optionalAddress = addressRepository.findById(id);
+        if (optionalAddress.isPresent()) {
+            Address entity = optionalAddress.get();
             updateData(entity, address);
             return addressRepository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new RuntimeException("Address not found with ID: " + id);
+        } else {
+            throw new ResourceNotFoundException(id, "Address");
         }
     }
 

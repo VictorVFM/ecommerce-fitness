@@ -2,6 +2,7 @@ package com.victorhugo.ecommercefitness.service;
 
 import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.repositories.ClientRepository;
+import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.apache.catalina.User;
@@ -22,7 +23,7 @@ public class ClientService {
 
     public Client findById(Long id) {
         Optional<Client> obj = clientRepository.findById(id);
-        return obj.orElseThrow(() -> new RuntimeException("Client not found"));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Client"));
     }
 
 
@@ -31,16 +32,23 @@ public class ClientService {
     }
 
     public void delete(Long id) {
-        clientRepository.delete(id);
+        Optional<Client> obj = clientRepository.findById(id);
+        if (obj.isPresent()) {
+            clientRepository.delete(obj.get());
+        } else {
+            throw new ResourceNotFoundException(id,"Client");
+        }
     }
 
+
     public Client update(Long id, Client client){
-        try {
-            Client entity = clientRepository.getReferenceById(id);
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isPresent()) {
+            Client entity = optionalClient.get();
             updateData(entity, client);
             return clientRepository.save(entity);
-        }catch (EntityNotFoundException e){
-            throw new RuntimeException("Cliente não encontrado id: " + id);
+        } else {
+            throw new ResourceNotFoundException(id, "Client");
         }
     }
 
