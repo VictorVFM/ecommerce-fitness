@@ -12,3 +12,13 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_COLLATION: utf8mb4_unicode_ci
+
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
