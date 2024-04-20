@@ -1,11 +1,15 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Ingrediente")
@@ -27,6 +31,10 @@ public class Ingredient {
 
     @Column(name = "quantidade", nullable = false)
     private int quantity;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "ingredients")
+    private List<Food> foods;
 
     @Column(name = "status", nullable = false)
     private Boolean status = true;
