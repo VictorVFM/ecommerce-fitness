@@ -1,17 +1,17 @@
 package com.victorhugo.ecommercefitness.enums.Employee;
 
-public enum EmployeePosition {
+public enum EmployeeRole {
     COZINHEIRO("Cozinheiro"),
     ADMINISTRADOR("Administrador"),
     ENTREGADOR("Entregador");
 
     private final String description;
 
-    EmployeePosition(String description) {
+    EmployeeRole(String description) {
         this.description = description;
     }
 
-    public String getDescricao() {
+    public String getDescription() {
         return description;
     }
 }

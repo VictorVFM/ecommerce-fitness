@@ -60,7 +60,7 @@ public class EmployeeService {
         entity.setEmail(newEntity.getEmail());
         entity.setPhone(newEntity.getPhone());
         entity.setPassword(newEntity.getPassword());
-        entity.setPosition(newEntity.getPosition());
+        entity.setRole(newEntity.getRole());
         entity.setStatus(newEntity.isStatus());
     }
 }
