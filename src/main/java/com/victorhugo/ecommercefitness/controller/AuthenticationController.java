@@ -2,12 +2,11 @@ package com.victorhugo.ecommercefitness.controller;
 
 import com.victorhugo.ecommercefitness.dto.AuthenticationDTO;
 import com.victorhugo.ecommercefitness.dto.LoginResponseDTO;
-import com.victorhugo.ecommercefitness.dto.RegisterDTO;
+import com.victorhugo.ecommercefitness.dto.RegisterAdminDTO;
 import com.victorhugo.ecommercefitness.infra.security.TokenService;
 import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.repositories.EmployeeRepository;
 import jakarta.validation.Valid;
-import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +40,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity register (@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity register (@RequestBody @Valid RegisterAdminDTO data){
         if(this.employeeRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());

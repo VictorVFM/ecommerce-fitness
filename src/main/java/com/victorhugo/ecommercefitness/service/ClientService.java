@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class ClientService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Client"));
     }
 
+    public UserDetails findByEmail(String email){
+        UserDetails obj = clientRepository.findByEmail(email);
+        return obj;
+    }
 
     public Client create(Client client) {
         return clientRepository.save(client);

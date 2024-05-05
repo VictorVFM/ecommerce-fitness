@@ -26,10 +26,13 @@ public class SecurityConfigurations {
                 .csrf(csrf ->csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/employees/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/employees/auth/register").hasRole("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.POST, "/clients/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/clients/auth/register").permitAll()
                         .requestMatchers( "/clients/**").hasRole("ADMINISTRADOR")
-                        .anyRequest().authenticated()
+                        //.anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
