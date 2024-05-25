@@ -15,16 +15,3 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_CHARSET: utf8
       MYSQL_COLLATION: utf8mb4_unicode_ci
-      
-
-  java-app:
-    image: maven:latest
-    container_name: java-app
-    volumes:
-      - ./app:/usr/src/app
-    working_dir: /usr/src/app
-    command: mvn clean install && mvn spring-boot:run
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql-db
