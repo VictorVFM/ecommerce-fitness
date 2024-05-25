@@ -36,6 +36,10 @@ public class Client {
     @Column(name = "senha", nullable = false, length = 255)
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipo")
+    private ClientType type;
+
     @Column(name = "status", nullable = false)
     private Boolean status = true;
 
