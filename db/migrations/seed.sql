@@ -43,17 +43,6 @@ VALUES ('Carla Lima', 'F', '1989-02-22', '96321478501', 'carla@example.com', '55
 
 UPDATE funcionario SET funcao = 'Atendente' WHERE sexo = 'F';
 
-
-
-
-
-
-
-
-
-
-
-
 INSERT INTO fornecedor (nome_fantasia, cnpj, email, telefone, status)
 VALUES ('Pães da Fazenda', '12345678901234', 'paesfazenda@gmail.com', '1122334455', 1);
 

@@ -3,15 +3,19 @@ version: '3.8'
 services:
   mysql-db:
     image: mysql:latest
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     container_name: ecommerce-mysql
     volumes:
       - ./db/migrations:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     environment:
+      LANG: C.UTF-8
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_CHARSET: utf8
       MYSQL_COLLATION: utf8mb4_unicode_ci
+      
 
   java-app:
     image: maven:latest
