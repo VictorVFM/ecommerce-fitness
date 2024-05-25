@@ -53,6 +53,7 @@ public class CategoryFoodService {
 
     private void updateData(CategoryFood entity, CategoryFood newCategoryFood) {
         entity.setName(newCategoryFood.getName());
+        entity.setUrl_image(newCategoryFood.getUrl_image());
         entity.setStatus(newCategoryFood.getStatus());
     }
 

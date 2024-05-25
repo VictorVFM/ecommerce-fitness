@@ -19,6 +19,9 @@ public class CategoryFood {
     @Column(name = "nome", nullable = false, length = 50)
     private String name;
 
+    @Column(name = "imagem", nullable = false)
+    private String url_image;
+
     @Column(name = "status", nullable = false)
     private Boolean status = true;
 }
