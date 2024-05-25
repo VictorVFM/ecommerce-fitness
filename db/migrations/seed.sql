@@ -1,17 +1,22 @@
+USE ecommerce_fitness;
 
 ##Populando Banco
-INSERT INTO cliente (nome, email, documento, telefone, senha, status) VALUES ('João Silva', 'joao@example.com', '12345678901', '1122334455', 'senha123', 1);
-INSERT INTO cliente (nome, email, documento, telefone, senha, status) VALUES ('Maria Souza', 'maria@example.com', '98765432109', '9988776655', 'senha456', 1);
-INSERT INTO cliente (nome, email, documento, telefone, senha, status) VALUES ('Carlos Santos', 'carlos@example.com', '65432198701', '7766554433', 'senha789', 1);
-INSERT INTO cliente (nome, email, documento, telefone, senha, status) VALUES ('Ana Oliveira', 'ana@example.com', '36985214701', '5544332211', 'senhaabc', 1);
-INSERT INTO cliente (nome, email, documento, telefone, senha, status) VALUES ('Pedro Pereira', 'pedro@example.com', '25896314701', '3322115544', 'senhaxyz', 1);
+
+
+INSERT INTO tipo_cliente(nome,status) VALUES('CLIENTE_NORMAL',1);
+
+INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) VALUES ('João Silva', 'joao@example.com', '12345678901', '1122334455', 'senha123', 1, 1);
+INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) VALUES ('Maria Souza', 'maria@example.com', '98765432109', '9988776655', 'senha456', 1, 1);
+INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) VALUES ('Carlos Santos', 'carlos@example.com', '65432198701', '7766554433', 'senha789', 1, 1);
+INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) VALUES ('Ana Oliveira', 'ana@example.com', '36985214701', '5544332211', 'senhaabc', 1, 1);
+INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) VALUES ('Pedro Pereira', 'pedro@example.com', '25896314701', '3322115544', 'senhaxyz', 1, 1);
 
 
 UPDATE cliente SET email = 'carlos_novo@example.com' WHERE nome = 'Carlos Santos';
 
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('João Silva', 'M', '1990-05-15', '12345678901', 'joao@example.com', '1122334455', 'senha123', 'Gerente', 1);
+VALUES ('João Silva', 'M', '1990-05-15', '12345678901', 'joao@example.com', '1122334455', 'senha123', 'A', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
 VALUES ('Maria Souza', 'F', '1985-08-20', '98765432109', 'maria@example.com', '9988771655', 'senha456', 'Atendente', 1);
@@ -42,6 +47,17 @@ VALUES ('Carla Lima', 'F', '1989-02-22', '96321478501', 'carla@example.com', '55
 
 
 UPDATE funcionario SET funcao = 'Atendente' WHERE sexo = 'F';
+
+
+
+
+
+
+
+
+
+
+
 
 INSERT INTO fornecedor (nome_fantasia, cnpj, email, telefone, status)
 VALUES ('Pães da Fazenda', '12345678901234', 'paesfazenda@gmail.com', '1122334455', 1);
@@ -487,3 +503,29 @@ INSERT INTO comida_ingrediente (id_Comida, id_Ingrediente)
 VALUES (9, 31); -- Carne Moída Magra
 INSERT INTO comida_ingrediente (id_Comida, id_Ingrediente)
 VALUES (9, 32); -- Queijo Cottage
+
+UPDATE comida SET imagem = CONCAT('food_',id,'.png') WHERE id BETWEEN 1 AND 32;
+UPDATE comida SET imagem = CONCAT('food_',id,'.jpg') WHERE id BETWEEN 33 AND 40;
+
+UPDATE comida SET id_categoria = 3 WHERE id_categoria = 9;
+UPDATE comida SET id_categoria = 4 WHERE id_categoria = 10;
+
+UPDATE categoria_comida SET imagem = CONCAT('menu_',id,'.png') WHERE id BETWEEN 1 AND 10;
+
+
+INSERT INTO tipo_pagamento (nome, status) VALUES ('Cartão de Crédito', true);
+INSERT INTO tipo_pagamento (nome, status) VALUES ('Boleto Bancário', true);
+INSERT INTO tipo_pagamento (nome, status) VALUES ('Transferência Bancária', true);
+INSERT INTO tipo_pagamento (nome, status) VALUES ('Dinheiro', true);
+INSERT INTO tipo_pagamento (nome, status) VALUES ('Cheque', true);
+
+
+INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (1, 1, '2024-05-05', 1, true);
+INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (2, 2, '2024-05-06', 2, true);
+INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (3, 3, '2024-05-07', 3, true);
+INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (4, 4, '2024-05-08', 4, true);
+INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (5, 5, '2024-05-09', 5, true);
+
+
+
+
