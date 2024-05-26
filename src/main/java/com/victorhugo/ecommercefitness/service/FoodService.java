@@ -53,6 +53,7 @@ public class FoodService {
         entity.setName(newFood.getName());
         entity.setPrice(newFood.getPrice());
         entity.setKcal(newFood.getKcal());
+        entity.setIngredients(newFood.getIngredients());
         entity.setId_CategoryFood(newFood.getId_CategoryFood());
         entity.setUrl_image(newFood.getUrl_image());
         entity.setStatus(newFood.getStatus());
