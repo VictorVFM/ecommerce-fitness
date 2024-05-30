@@ -22,4 +22,6 @@ public class ClientType {
     private Boolean status = true;
 
 
+
 }
+

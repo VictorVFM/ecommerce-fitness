@@ -1,16 +1,21 @@
 package com.victorhugo.ecommercefitness.model;
 
 import com.victorhugo.ecommercefitness.enums.Employee.EmployeeGender;
-import com.victorhugo.ecommercefitness.enums.Employee.EmployeePosition;
+import com.victorhugo.ecommercefitness.enums.Employee.EmployeeRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -20,7 +25,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Employee {
+public class Employee extends User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,8 +54,60 @@ public class Employee {
 
     @Column(name = "funcao", nullable = false, length = 40)
     @Enumerated(EnumType.STRING)
-    private EmployeePosition position;
+    private EmployeeRole role;
 
     @Column(name = "status", nullable = false)
     private boolean status = true;
+
+    public Employee(String name, EmployeeGender gender, Date birthDate, String cpf, String email, String phone, String password, EmployeeRole role) {
+        this.name = name;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.cpf = cpf;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == EmployeeRole.ADMINISTRADOR){
+            return  List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"),
+            new SimpleGrantedAuthority("ROLE_COZINHEIRO"));
+        }else if(this.role == EmployeeRole.COZINHEIRO){
+            return List.of(new SimpleGrantedAuthority("ROLE_COZINHEIRO"));
+        }else if(this.role == EmployeeRole.ENTREGADOR){
+            return List.of(new SimpleGrantedAuthority("ROLE_ENTREGADOR"));
+        }else return null;
+
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        if(this.status == false){
+            return  false;
+        }
+        return true;
+    }
 }

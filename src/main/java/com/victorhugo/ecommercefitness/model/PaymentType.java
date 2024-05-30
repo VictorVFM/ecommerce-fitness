@@ -1,11 +1,9 @@
 package com.victorhugo.ecommercefitness.model;
 
-import com.victorhugo.ecommercefitness.enums.Employee.EmployeeGender;
-import com.victorhugo.ecommercefitness.enums.Employee.EmployeePosition;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name = "tipo_pagamento")
