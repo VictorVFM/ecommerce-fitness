@@ -20,6 +20,4 @@ public class ClientType {
 
     @Column(name = "status", nullable = false)
     private Boolean status = true;
-
-
 }

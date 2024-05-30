@@ -5,6 +5,7 @@ import com.victorhugo.ecommercefitness.repositories.EmployeeRepository;
 import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 
@@ -24,6 +25,11 @@ public class EmployeeService {
     public Employee findById(Long id) {
         Optional<Employee> obj = employeeRepository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Employee"));
+    }
+
+    public UserDetails findByEmail(String email){
+        UserDetails obj = employeeRepository.findByEmail(email);
+        return obj;
     }
 
     public Employee create(Employee employee) {
@@ -60,7 +66,7 @@ public class EmployeeService {
         entity.setEmail(newEntity.getEmail());
         entity.setPhone(newEntity.getPhone());
         entity.setPassword(newEntity.getPassword());
-        entity.setPosition(newEntity.getPosition());
+        entity.setRole(newEntity.getRole());
         entity.setStatus(newEntity.isStatus());
     }
 }
