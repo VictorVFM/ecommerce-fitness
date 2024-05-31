@@ -67,7 +67,7 @@ public class ClientController {
 
         var token = this.tokenService.generateToken((Client) auth.getPrincipal());
 
-        return  ResponseEntity.ok(new LoginResponseDTO(token));
+        return  ResponseEntity.ok(new LoginResponseDTO(token,tokenService.validateToken(token)));
     }
 
     @PostMapping("/auth/register")
