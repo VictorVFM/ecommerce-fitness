@@ -527,5 +527,32 @@ INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, st
 INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (5, 5, '2024-05-09', 5, true);
 
 
+INSERT INTO loja (id, cnpj, nomeFantasia, dataFundacao) VALUES (1, '12345678901234', 'Loja 1', '2020-01-01');
 
+
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Honda', 'CG 160 Start', 'Vermelha', 2023, 'ABC1234', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Yamaha', 'Factor 150', 'Preto', 2022, 'DEF5678', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Suzuki', 'Yes 125', 'Branco', 2021, 'GHI9012', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Kawasaki', 'Ninja 300', 'Verde', 2023, 'JKL3456', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Harley-Davidson', 'Iron 883', 'Preto', 2020, 'MNO7890', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('BMW', 'G 310 GS', 'Azul', 2022, 'PQR1234', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Triumph', 'Street Triple RS', 'Laranja', 2021, 'STU5678', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Ducati', 'Monster 797', 'Vermelha', 2023, 'VWX9012', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('KTM', 'Duke 200', 'Laranja', 2022, 'YZA3456', 1);
+INSERT INTO veiculo (marca, modelo, cor, ano, placa, status) VALUES('Royal Enfield', 'Himalayan 411', 'Preto', 2020, 'BCD6789', 1);
+
+
+INSERT INTO funcionarioVeiculo (id_Entregador, id_Veiculo) VALUES(1, 1);
+
+
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13087-540', 'SP', 'Campinas', 'Jardim do Lago II', 'Rua Ana Maria Gonçalves Bueno', '91', 5, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13070-112', 'SP', 'Campinas', 'Jardim Proença', 'Rua Doutor Alberto Sarmento', '97', 4, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13090-720', 'SP', 'Campinas', 'Jardim das Paineiras', 'Rua José Resende Filho', '315', 3, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13085-521', 'SP', 'Campinas', 'Jardim Santa Genebra', 'Rua Doutor Carlos Guimarães', '103', 2, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13076-003', 'SP', 'Campinas', 'Parque Industrial', 'Rua José Rocha Bomfim', '204', 1, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13044-001', 'SP', 'Campinas', 'Jardim Nova Europa', 'Rua Elpídio Gomes', '207', 1, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13083-012', 'SP', 'Campinas', 'Jardim Bela Vista', 'Rua Professor Germano Negrini', '244', 2, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13098-667', 'SP', 'Campinas', 'Parque das Universidades', 'Rua Alzira de Aguiar Aranha', '69', 4, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13070-295', 'SP', 'Campinas', 'Jardim Proença', 'Rua Doutor Atilio Tognato', '50', 2, 1);
+INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13046-327', 'SP', 'Campinas', 'Vila Nova Teixeira', 'Rua Doutor Zerbini', '460', 3, 1);
 
