@@ -18,6 +18,7 @@ CREATE TABLE cliente(
      telefone VARCHAR(11) NOT NULL UNIQUE,
      senha VARCHAR(255) NOT NULL,
      id_tipo INT NOT NULL,
+     imagem TEXT,
      status BOOL NOT NULL,
      CONSTRAINT fk_Tipo_Cliente_Cliente FOREIGN KEY(id_tipo) REFERENCES tipo_cliente(id)
 );
