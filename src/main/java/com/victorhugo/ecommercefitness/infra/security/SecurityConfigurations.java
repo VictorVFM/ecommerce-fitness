@@ -20,8 +20,13 @@ public class SecurityConfigurations {
 
     @Autowired
     SecurityFilter securityFilter;
+    private Boolean authentication = false;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+
+        if(!authentication){
+            return httpSecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests(authotize -> authotize.anyRequest().permitAll()).build();
+        }
         return httpSecurity
                 .csrf(csrf ->csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
