@@ -5,6 +5,7 @@ import com.victorhugo.ecommercefitness.dto.LoginResponseDTO;
 import com.victorhugo.ecommercefitness.dto.RegisterClientDTO;
 import com.victorhugo.ecommercefitness.infra.security.TokenService;
 import com.victorhugo.ecommercefitness.model.Client;
+import com.victorhugo.ecommercefitness.model.ClientType;
 import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.service.ClientService;
 import jakarta.validation.Valid;
@@ -74,7 +75,7 @@ public class ClientController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         Client newClient = new Client(data.name(),data.email(),data.document(),data.phone(),
-                encryptedPassword,data.type()
+                encryptedPassword,new ClientType(1L,null, null)
         );
 
         this.clientService.create(newClient);
