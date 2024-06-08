@@ -1,8 +1,9 @@
 package com.victorhugo.ecommercefitness.enums.Employee;
 
 public enum EmployeeRole {
-    COZINHEIRO("Cozinheiro"),
+
     ADMINISTRADOR("Administrador"),
+    COZINHEIRO("Cozinheiro"),
     ENTREGADOR("Entregador");
 
     private final String description;
