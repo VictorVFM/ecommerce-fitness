@@ -1,6 +1,7 @@
 package com.victorhugo.ecommercefitness.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.victorhugo.ecommercefitness.enums.Employee.OrderStage;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,8 +34,9 @@ public class Order {
     @Column(name = "data_pedido", nullable = false, length = 50)
     private Date orderDate = new Date();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+    @JsonManagedReference
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_pagamento")
@@ -52,12 +54,5 @@ public class Order {
 
 
 
-    public Order(Client client, Employee employee, PaymentType paymentType, String address,List<OrderItem> orderItems) {
-        this.client = client;
-        this.employee = employee;
-        this.paymentType = paymentType;
-        this.address = address;
-        this.orderItems = orderItems;
 
-    }
 }

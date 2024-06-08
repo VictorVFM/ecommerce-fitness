@@ -5,6 +5,7 @@ import com.victorhugo.ecommercefitness.model.Order;
 import com.victorhugo.ecommercefitness.model.OrderItem;
 import com.victorhugo.ecommercefitness.repositories.OrderRepository;
 import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,19 +41,14 @@ public class OrderService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Order"));
     }
 
-    public Order create(OrderDTO order) {
-        Order newOrder;
-
-        for (OrderItem orderItem: order.orderItems()){
-            orderItemService.create(new OrderItem());
-        }
-        newOrder = new Order(
-                clientService.findById(order.id_Client()),
-                employeeService.findById(order.id_Employee()),
-                paymentTypeService.findById(order.id_PaymentType()),
-                order.address(),
-                order.orderItems());
-        return orderRepository.save(newOrder);
+    @Transactional
+    public Order create(Order order) {
+    Order savedOrder = orderRepository.save(order);
+    for(OrderItem item: order.getOrderItems()){
+        item.setOrder(savedOrder);
+        orderItemService.create(item);
+    }
+        return orderRepository.save(order);
     }
 
     public void delete(Long id) {

@@ -1,5 +1,6 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +19,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "id_Pedido")
-    @JsonIgnore
+    @JsonBackReference
     private Order order;
 
     @ManyToOne
