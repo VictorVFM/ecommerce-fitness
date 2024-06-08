@@ -43,6 +43,7 @@ public class Client extends User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo")
+    @JsonIgnore
     private ClientType type;
 
     @Column(name = "status", nullable = false)
@@ -61,26 +62,31 @@ public class Client extends User implements UserDetails {
         this.type = type;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return  List.of(new SimpleGrantedAuthority("CLIENTE_NORMAL"));
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;

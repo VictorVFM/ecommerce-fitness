@@ -1,13 +1,13 @@
 package com.victorhugo.ecommercefitness.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.victorhugo.ecommercefitness.enums.Employee.EmployeeRole;
 import com.victorhugo.ecommercefitness.enums.Employee.OrderStage;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Null;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Pedido")
@@ -33,6 +33,9 @@ public class Order {
     @Column(name = "data_pedido", nullable = false, length = 50)
     private Date orderDate = new Date();
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "id_tipo_pagamento")
     private PaymentType paymentType;
@@ -48,11 +51,13 @@ public class Order {
     private Boolean status = true;
 
 
-    public Order(Client client, Employee employee, PaymentType paymentType, String address) {
+
+    public Order(Client client, Employee employee, PaymentType paymentType, String address,List<OrderItem> orderItems) {
         this.client = client;
         this.employee = employee;
         this.paymentType = paymentType;
         this.address = address;
+        this.orderItems = orderItems;
 
     }
 }

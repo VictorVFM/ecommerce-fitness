@@ -1,12 +1,11 @@
 package com.victorhugo.ecommercefitness.service;
 
 import com.victorhugo.ecommercefitness.dto.OrderDTO;
-import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.model.Order;
+import com.victorhugo.ecommercefitness.model.OrderItem;
 import com.victorhugo.ecommercefitness.repositories.OrderRepository;
 import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +26,14 @@ public class OrderService {
     @Autowired
     private PaymentTypeService paymentTypeService;
 
+    @Autowired OrderItemService orderItemService;
 
 
-    public List<Order> findAll(){return orderRepository.findByStatusTrue();}
+
+    public List<Order> findAll(){
+        List<Order> orders = orderRepository.findByStatusTrue();
+        return orderRepository.findByStatusTrue();
+    }
 
     public Order findById(Long id) {
         Optional<Order> obj = orderRepository.findById(id);
@@ -38,11 +42,16 @@ public class OrderService {
 
     public Order create(OrderDTO order) {
         Order newOrder;
+
+        for (OrderItem orderItem: order.orderItems()){
+            orderItemService.create(new OrderItem());
+        }
         newOrder = new Order(
                 clientService.findById(order.id_Client()),
                 employeeService.findById(order.id_Employee()),
                 paymentTypeService.findById(order.id_PaymentType()),
-                order.address());
+                order.address(),
+                order.orderItems());
         return orderRepository.save(newOrder);
     }
 

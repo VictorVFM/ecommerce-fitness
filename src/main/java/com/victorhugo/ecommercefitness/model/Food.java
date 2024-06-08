@@ -45,4 +45,8 @@ public class Food {
 
     @Column(name = "status", nullable = false)
     private Boolean status = true;
+
+    public Food(Long id) {
+        this.id = id;
+    }
 }

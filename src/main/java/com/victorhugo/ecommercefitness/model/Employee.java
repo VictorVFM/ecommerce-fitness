@@ -1,5 +1,6 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.victorhugo.ecommercefitness.enums.Employee.EmployeeGender;
 import com.victorhugo.ecommercefitness.enums.Employee.EmployeeRole;
 import jakarta.persistence.*;
@@ -70,6 +71,8 @@ public class Employee extends User implements UserDetails {
         this.role = role;
     }
 
+
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == EmployeeRole.ADMINISTRADOR){
@@ -82,22 +85,22 @@ public class Employee extends User implements UserDetails {
         }else return null;
 
     }
-
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
