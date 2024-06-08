@@ -16,38 +16,34 @@ UPDATE cliente SET email = 'carlos_novo@example.com' WHERE nome = 'Carlos Santos
 
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('João Silva', 'M', '1990-05-15', '12345678901', 'joao@example.com', '1122334455', 'senha123', 'A', 1);
+VALUES ('João Silva', 'M', '1990-05-15', '12345678901', 'joao@example.com', '1122334455', 'senha123', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Maria Souza', 'F', '1985-08-20', '98765432109', 'maria@example.com', '9988771655', 'senha456', 'Atendente', 1);
+VALUES ('Maria Souza', 'F', '1985-08-20', '98765432109', 'maria@example.com', '9988771655', 'senha456', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Carlos Santos', 'M', '1988-03-10', '65432198701', 'carlos@example.com', '7866554433', 'senha789', 'Técnico', 1);
+VALUES ('Carlos Santos', 'M', '1988-03-10', '65432198701', 'carlos@example.com', '7866554433', 'senha789', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Ana Oliveira', 'F', '1992-11-25', '36985214701', 'ana@example.com', '5544332211', 'senhaabc', 'Analista', 1);
+VALUES ('Ana Oliveira', 'F', '1992-11-25', '36985214701', 'ana@example.com', '5544332211', 'senhaabc', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Pedro Pereira', 'M', '1995-07-03', '25896314701', 'pedro@example.com', '3322115544', 'senhaxyz', 'Estagiário', 1);
+VALUES ('Pedro Pereira', 'M', '1995-07-03', '25896314701', 'pedro@example.com', '3322115544', 'senhaxyz', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Luana Costa', 'F', '1987-12-12', '74185296301', 'luana@example.com', '6677889900', 'senha123', 'Analista', 1);
+VALUES ('Luana Costa', 'F', '1987-12-12', '74185296301', 'luana@example.com', '6677889900', 'senha123', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Rafael Oliveira', 'M', '1991-06-28', '85296374101', 'rafael@example.com', '11223344565', 'senha456', 'Técnico', 1);
+VALUES ('Rafael Oliveira', 'M', '1991-06-28', '85296374101', 'rafael@example.com', '11223344565', 'senha456', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Juliana Almeida', 'F', '1990-09-17', '96385274101', 'juliana@example.com', '9988776655', 'senha789', 'Atendente', 1);
+VALUES ('Juliana Almeida', 'F', '1990-09-17', '96385274101', 'juliana@example.com', '9988776655', 'senha789', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Gustavo Santos', 'M', '1994-04-08', '65498732101', 'gustavo@example.com', '7766554433', 'senhaabc', 'Estagiário', 1);
+VALUES ('Gustavo Santos', 'M', '1994-04-08', '65498732101', 'gustavo@example.com', '7766554433', 'senhaabc', 'ENTREGADOR', 1);
 
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
-VALUES ('Carla Lima', 'F', '1989-02-22', '96321478501', 'carla@example.com', '5544392211', 'senhaxyz', 'Gerente', 1);
-
-
-UPDATE funcionario SET funcao = 'Atendente' WHERE sexo = 'F';
-
+VALUES ('Carla Lima', 'F', '1989-02-22', '96321478501', 'carla@example.com', '5544392211', 'senhaxyz', 'ENTREGADOR', 1);
 
 
 
@@ -520,11 +516,22 @@ INSERT INTO tipo_pagamento (nome, status) VALUES ('Dinheiro', true);
 INSERT INTO tipo_pagamento (nome, status) VALUES ('Cheque', true);
 
 
-INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (1, 1, '2024-05-05', 1, true);
-INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (2, 2, '2024-05-06', 2, true);
-INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (3, 3, '2024-05-07', 3, true);
-INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (4, 4, '2024-05-08', 4, true);
-INSERT INTO pedido (id_Cliente, Id_Funcionario, dataPedido, id_tipoPagamento, status) VALUES (5, 5, '2024-05-09', 5, true);
+INSERT INTO pedido (id_Cliente, Id_Funcionario, data_pedido, id_tipo_pagamento, endereco, status)
+VALUES (1, 1, '2024-05-05', 1, '{"rua": "Rua Barão de Jaguara", "numero": 123, "bairro": "Centro", "cidade": "Campinas", "estado": "SP", "cep": "13015-130", "pais": "Brasil"}', true);
+
+INSERT INTO pedido (id_Cliente, Id_Funcionario, data_pedido, id_tipo_pagamento, endereco, status)
+VALUES (2, 2, '2024-05-06', 2, '{"rua": "Avenida Francisco Glicério", "numero": 456, "bairro": "Centro", "cidade": "Campinas", "estado": "SP", "cep": "13012-100", "pais": "Brasil"}', true);
+
+INSERT INTO pedido (id_Cliente, Id_Funcionario, data_pedido, id_tipo_pagamento, endereco, status)
+VALUES (3, 3, '2024-05-07', 3, '{"rua": "Rua Dr. Quirino", "numero": 789, "bairro": "Centro", "cidade": "Campinas", "estado": "SP", "cep": "13015-081", "pais": "Brasil"}', true);
+
+INSERT INTO pedido (id_Cliente, Id_Funcionario, data_pedido, id_tipo_pagamento, endereco, status)
+VALUES (4, 4, '2024-05-08', 4, '{"rua": "Rua José Paulino", "numero": 101, "bairro": "Centro", "cidade": "Campinas", "estado": "SP", "cep": "13013-000", "pais": "Brasil"}', true);
+
+INSERT INTO pedido (id_Cliente, Id_Funcionario, data_pedido, id_tipo_pagamento, endereco, status)
+VALUES (5, 5, '2024-06-07', 5, '{"rua": "Avenida Andrade Neves", "numero": 112, "bairro": "Botafogo", "cidade": "Campinas", "estado": "SP", "cep": "13013-160", "pais": "Brasil"}', true);
+
+
 
 
 INSERT INTO loja (id, cnpj, nomeFantasia, dataFundacao) VALUES (1, '12345678901234', 'Loja 1', '2020-01-01');
@@ -555,4 +562,3 @@ INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, stat
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13098-667', 'SP', 'Campinas', 'Parque das Universidades', 'Rua Alzira de Aguiar Aranha', '69', 4, 1);
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13070-295', 'SP', 'Campinas', 'Jardim Proença', 'Rua Doutor Atilio Tognato', '50', 2, 1);
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13046-327', 'SP', 'Campinas', 'Vila Nova Teixeira', 'Rua Doutor Zerbini', '460', 3, 1);
-
