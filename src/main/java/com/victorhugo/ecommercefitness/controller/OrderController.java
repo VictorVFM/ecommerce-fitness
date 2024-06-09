@@ -1,8 +1,5 @@
 package com.victorhugo.ecommercefitness.controller;
 
-import com.victorhugo.ecommercefitness.dto.OrderDTO;
-import com.victorhugo.ecommercefitness.model.Food;
-import com.victorhugo.ecommercefitness.model.Ingredient;
 import com.victorhugo.ecommercefitness.model.Order;
 import com.victorhugo.ecommercefitness.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,12 @@ public class OrderController {
     public ResponseEntity<List<Order>> findAll(){
         List<Order> orders = orderService.findAll();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> findById(@PathVariable Long id){
+        Order order = orderService.findById(id);
+        return ResponseEntity.ok(order);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order){

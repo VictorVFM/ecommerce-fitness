@@ -6,6 +6,8 @@ import com.victorhugo.ecommercefitness.enums.Employee.OrderStage;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +40,12 @@ public class Order {
     @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
+    @Transient
+    private Double total_price = 0.0;
+
+    @Transient
+    private int total_kcal = 0;
+
     @ManyToOne
     @JoinColumn(name = "id_tipo_pagamento")
     private PaymentType paymentType;
@@ -51,6 +59,25 @@ public class Order {
 
     @Column(name = "status")
     private Boolean status = true;
+
+    @PostLoad
+    private void totalPrice() {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        BigDecimal totalKcal = BigDecimal.ZERO;
+        for (OrderItem item : this.orderItems) {
+            BigDecimal itemPrice = BigDecimal.valueOf(item.getFood().getPrice() * item.getQuantity());
+            this.total_kcal += item.getFood().getKcal() * item.getQuantity();
+            totalPrice = totalPrice.add(itemPrice);
+
+
+        }
+        this.total_price = totalPrice.setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+    }
+
+
+
+
 
 
 
