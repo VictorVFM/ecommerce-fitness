@@ -14,6 +14,14 @@ INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) V
 
 UPDATE cliente SET email = 'carlos_novo@example.com' WHERE nome = 'Carlos Santos';
 
+INSERT INTO cartao_cliente (id_Cliente, numero_cartao, nome_titular, validade, cvv, status)
+VALUES
+    (1, '1234567812345678', 'João da Silva', '2025-12-31', '123', 1),
+    (2, '8765432187654321', 'Maria Oliveira', '2024-10-31', '456', 1),
+    (3, '1111222233334444', 'Carlos Santos', '2023-05-31', '789', 1),
+    (4, '9876543298765432', 'Ana Souza', '2026-08-31', '321', 1),
+    (5, '5555666677778888', 'Pedro Pereira', '2024-11-30', '999', 1);
+
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
 VALUES('Veio da Lancha', 'M', '1990-05-14', '12242s9', 'admin@gmail.com', '644220', '$2a$10$gEy6LIjP9QXuPqvJV5HAculbeACnRyKkgoehWlzB/o8V4WikEfowa', 'ADMINISTRADOR', 1);
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
@@ -563,3 +571,63 @@ INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, stat
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13098-667', 'SP', 'Campinas', 'Parque das Universidades', 'Rua Alzira de Aguiar Aranha', '69', 4, 1);
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13070-295', 'SP', 'Campinas', 'Jardim Proença', 'Rua Doutor Atilio Tognato', '50', 2, 1);
 INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero, id_Cliente, status) VALUES('13046-327', 'SP', 'Campinas', 'Vila Nova Teixeira', 'Rua Doutor Zerbini', '460', 3, 1);
+
+
+
+INSERT INTO avaliacao_cliente (id_Cliente, id_Pedido, nota, comentario)
+VALUES (1, 1, 5, 'Excelente serviço e comida de alta qualidade.'),
+       (2, 2, 4, 'Gostei muito, mas poderia ter mais opções vegetarianas.'),
+       (3, 3, 3, 'Comida boa, mas entrega atrasou um pouco.'),
+       (4, 4, 5, 'Adorei! Tudo perfeito, desde a embalagem até o sabor.'),
+       (5, 5, 2, 'Não fiquei satisfeito com o atendimento.');
+
+
+
+INSERT INTO cupom_desconto (codigo, desconto, validade, status)
+VALUES
+    ('DESC10OFF', 10.00, '2024-12-31', 1),
+    ('FREESHIP', 5.00, '2024-06-30', 1),
+    ('SUMMER15', 15.00, '2024-09-30', 1),
+    ('SALE20', 20.00, '2024-07-31', 1);
+
+
+
+INSERT INTO lista_de_desejos (id_cliente, id_comida)
+VALUES
+    (1, 5),
+    (1, 10),
+    (1, 15),
+    (2, 3),
+    (2, 7),
+    (2, 12),
+    (3, 1),
+    (3, 9),
+    (3, 18),
+    (4, 2),
+    (4, 6),
+    (4, 14),
+    (5, 4),
+    (5, 11),
+    (5, 20);
+
+
+INSERT INTO favoritos (id_cliente, id_comida)
+VALUES
+    (1, 3),
+    (1, 7),
+    (1, 12),
+    (2, 1),
+    (2, 5),
+    (2, 9),
+    (3, 2),
+    (3, 6),
+    (3, 11),
+    (4, 4),
+    (4, 8),
+    (4, 13),
+    (5, 10),
+    (5, 15),
+    (5, 19);
+
+
+

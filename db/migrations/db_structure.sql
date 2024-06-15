@@ -23,6 +23,16 @@ CREATE TABLE cliente(
                         CONSTRAINT fk_Tipo_Cliente_Cliente FOREIGN KEY(id_tipo) REFERENCES tipo_cliente(id)
 );
 
+CREATE TABLE cartao_cliente (
+                                id INT PRIMARY KEY AUTO_INCREMENT,
+                                id_Cliente INT NOT NULL,
+                                numero_cartao VARCHAR(16) NOT NULL,
+                                nome_titular VARCHAR(100) NOT NULL,
+                                validade DATE NOT NULL,
+                                cvv VARCHAR(3) NOT NULL,
+                                status BOOL NOT NULL,
+                                CONSTRAINT fk_Cliente_CartaoCliente FOREIGN KEY(id_Cliente) REFERENCES cliente(id)
+);
 
 CREATE TABLE loja(
                      id INT PRIMARY KEY NOT NULL,
@@ -173,6 +183,42 @@ CREATE TABLE itens_pedido(
 );
 
 
+CREATE TABLE avaliacao_cliente(
+                                  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                                  id_Cliente INT NOT NULL,
+                                  id_Pedido INT NOT NULL,
+                                  nota INT NOT NULL,
+                                  comentario TEXT,
+                                  data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                  CONSTRAINT fk_Cliente_Avaliacao FOREIGN KEY (id_Cliente) REFERENCES cliente(id),
+                                  CONSTRAINT fk_Pedido_Avaliacao FOREIGN KEY (id_Pedido) REFERENCES pedido(id)
+);
+
+CREATE TABLE cupom_desconto (
+                                id INT PRIMARY KEY AUTO_INCREMENT,
+                                codigo VARCHAR(50) NOT NULL UNIQUE,
+                                desconto DECIMAL(5,2) NOT NULL,
+                                validade DATE NOT NULL,
+                                status BOOL NOT NULL
+);
+
+CREATE TABLE lista_de_desejos (
+                                  id INT PRIMARY KEY AUTO_INCREMENT,
+                                  id_cliente INT NOT NULL,
+                                  id_comida INT NOT NULL,
+                                  CONSTRAINT fk_cliente_wishlist FOREIGN KEY (id_cliente) REFERENCES cliente(id),
+                                  CONSTRAINT fk_comida_wishlist FOREIGN KEY (id_comida) REFERENCES comida(id)
+);
+
+CREATE TABLE favoritos (
+                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           id_cliente INT NOT NULL,
+                           id_comida INT NOT NULL,
+                           CONSTRAINT fk_cliente_favoritos FOREIGN KEY (id_cliente) REFERENCES cliente(id),
+                           CONSTRAINT fk_comida_favoritos FOREIGN KEY (id_comida) REFERENCES comida(id)
+);
+
+
 
 ##Criação de Logs
 
@@ -206,6 +252,15 @@ CREATE TABLE eventosPedido(
                               CONSTRAINT fk_Pedido_EventosPedido FOREIGN KEY(id_Pedido) REFERENCES pedido(id)
 );
 
+
+CREATE TABLE pedido_Log(
+                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           id_Pedido INT NOT NULL,
+                           data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           acao VARCHAR(255),
+                           descricao TEXT,
+                           CONSTRAINT fk_Pedido_Pedido_Log FOREIGN KEY (id_Pedido) REFERENCES pedido(id)
+);
 
 ##Criação de VIEWS
 CREATE VIEW usuario AS
@@ -294,6 +349,50 @@ END $$
 
 DELIMITER ;
 
+DELIMITER $$
+
+DELIMITER //
+
+CREATE PROCEDURE buscar_pedidos_por_email(IN input_email VARCHAR(100))
+BEGIN
+    DECLARE user_id INT;
+    DECLARE user_tipo VARCHAR(20);
+
+    -- Verifica se o e-mail pertence a um cliente
+SELECT id INTO user_id
+FROM cliente
+WHERE email = input_email;
+
+IF user_id IS NOT NULL THEN
+        SET user_tipo = 'cliente';
+ELSE
+        -- Verifica se o e-mail pertence a um funcionário
+SELECT id INTO user_id
+FROM funcionario
+WHERE email = input_email;
+
+IF user_id IS NOT NULL THEN
+            SET user_tipo = 'funcionario';
+END IF;
+END IF;
+
+    IF user_id IS NOT NULL THEN
+        IF user_tipo = 'cliente' THEN
+SELECT *
+FROM pedido
+WHERE id_Cliente = user_id;
+ELSE
+SELECT *
+FROM pedido
+WHERE Id_Funcionario = user_id;
+END IF;
+ELSE
+SELECT 'Nenhum usuário encontrado com o e-mail fornecido' AS message;
+END IF;
+END //
+
+DELIMITER ;
+
 
 
 
@@ -324,9 +423,6 @@ END IF;
 END //
 
 DELIMITER ;
-
-
-
 
 
 
@@ -363,6 +459,32 @@ CREATE TRIGGER funcionario_after_delete
     FOR EACH ROW
 BEGIN
     CALL inserir_Funcionario_Log(OLD.id, 'Exclusão', CONCAT('Funcionário excluído - Nome: ', OLD.nome, '; Email: ', OLD.email));
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER pedido_after_insert
+    AFTER INSERT ON pedido
+    FOR EACH ROW
+BEGIN
+    INSERT INTO pedido_Log (id_Pedido, acao, descricao)
+    VALUES (NEW.id, 'Inserção', CONCAT('Novo pedido cadastrado com ID ', NEW.id));
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER pedido_after_update
+    AFTER UPDATE ON pedido
+    FOR EACH ROW
+BEGIN
+    IF OLD.etapa <> NEW.etapa OR OLD.status <> NEW.status THEN
+        INSERT INTO pedido_Log (id_Pedido, acao, descricao)
+        VALUES (NEW.id, 'Alteração', CONCAT('Pedido atualizado - Etapa: ', OLD.etapa, ' -> ', NEW.etapa, '; Status: ', OLD.status, ' -> ', NEW.status));
+END IF;
 END //
 
 DELIMITER ;
