@@ -38,6 +38,7 @@ public class Client extends User implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11, unique = true)
     private String phone;
 
+    @JsonIgnore
     @Column(name = "senha", nullable = false, length = 255)
     private String password;
 

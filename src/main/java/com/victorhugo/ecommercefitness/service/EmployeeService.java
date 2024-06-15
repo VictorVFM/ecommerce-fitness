@@ -1,5 +1,6 @@
 package com.victorhugo.ecommercefitness.service;
 
+import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.repositories.EmployeeRepository;
 import com.victorhugo.ecommercefitness.service.exceptions.ResourceNotFoundException;
@@ -27,11 +28,15 @@ public class EmployeeService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Employee"));
     }
 
-    public UserDetails findByEmail(String email){
+    public UserDetails findByUsername(String email){
         UserDetails obj = employeeRepository.findByEmail(email);
         return obj;
     }
 
+    public Employee findByEmail(String email){
+        Employee obj = employeeRepository.findByEmail(email);
+        return obj;
+    }
     public Employee create(Employee employee) {
 
         return employeeRepository.save(employee);

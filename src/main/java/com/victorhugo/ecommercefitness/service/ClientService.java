@@ -27,8 +27,13 @@ public class ClientService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Client"));
     }
 
-    public UserDetails findByEmail(String email){
+    public UserDetails findByUsername(String email){
         UserDetails obj = clientRepository.findByEmail(email);
+        return obj;
+    }
+
+    public Client findByEmail(String email){
+        Client obj = clientRepository.findByEmail(email);
         return obj;
     }
 
@@ -66,6 +71,8 @@ public class ClientService {
         entity.setStatus(newEntity.getStatus());
 
     }
+
+
 
 
 

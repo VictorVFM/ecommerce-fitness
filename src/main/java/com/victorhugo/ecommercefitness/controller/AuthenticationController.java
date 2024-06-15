@@ -35,7 +35,7 @@ public class AuthenticationController {
 
         var token = this.tokenService.generateToken((Employee) auth.getPrincipal());
 
-        return  ResponseEntity.ok(new LoginResponseDTO(token));
+        return  ResponseEntity.ok(new LoginResponseDTO(token,data.email()));
     }
 
 

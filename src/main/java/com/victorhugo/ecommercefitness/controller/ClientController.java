@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +37,19 @@ public class ClientController {
         return ResponseEntity.ok(clients);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Client> findById(@PathVariable Long id) {
         Client client = clientService.findById(id);
         return ResponseEntity.ok().body(client);
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Client> findByEmail(@PathVariable String email) {
+        Client client = clientService.findByEmail(email);
+        return ResponseEntity.ok().body(client);
+    }
+
 
     @PostMapping
     public ResponseEntity<Client> create(@RequestBody Client client) {
@@ -67,7 +76,7 @@ public class ClientController {
 
         var token = this.tokenService.generateToken((Client) auth.getPrincipal());
 
-        return  ResponseEntity.ok(new LoginResponseDTO(token));
+        return  ResponseEntity.ok(new LoginResponseDTO(token,data.email()));
     }
 
     @PostMapping("/auth/register")

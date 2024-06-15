@@ -1,5 +1,6 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.victorhugo.ecommercefitness.enums.Employee.EmployeeGender;
 import com.victorhugo.ecommercefitness.enums.Employee.EmployeeRole;
@@ -39,6 +40,7 @@ public class Employee extends User implements UserDetails {
     private EmployeeGender gender;
 
     @Column(name = "data_nascimento", nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
     private Date birthDate;
 
     @Column(name = "cpf", nullable = false, length = 11, unique = true)
@@ -50,6 +52,7 @@ public class Employee extends User implements UserDetails {
     @Column(name = "telefone", nullable = false, length = 11, unique = true)
     private String phone;
 
+    @JsonIgnore
     @Column(name = "senha", nullable = false, length = 255)
     private String password;
 

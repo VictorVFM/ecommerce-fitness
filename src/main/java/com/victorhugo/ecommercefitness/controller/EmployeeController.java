@@ -4,6 +4,7 @@ import com.victorhugo.ecommercefitness.dto.AuthenticationDTO;
 import com.victorhugo.ecommercefitness.dto.LoginResponseDTO;
 import com.victorhugo.ecommercefitness.dto.RegisterAdminDTO;
 import com.victorhugo.ecommercefitness.infra.security.TokenService;
+import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.repositories.EmployeeRepository;
 import com.victorhugo.ecommercefitness.service.EmployeeService;
@@ -59,6 +60,12 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Employee> findByEmail(@PathVariable String email) {
+        Employee client = employeeService.findByEmail(email);
+        return ResponseEntity.ok().body(client);
+    }
+
     @PostMapping("/auth/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(),data.password());
@@ -66,7 +73,7 @@ public class EmployeeController {
 
         var token = this.tokenService.generateToken((Employee) auth.getPrincipal());
 
-        return  ResponseEntity.ok(new LoginResponseDTO(token));
+        return  ResponseEntity.ok(new LoginResponseDTO(token,data.email()));
     }
 
     @PostMapping("/auth/register")

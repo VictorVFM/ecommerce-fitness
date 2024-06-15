@@ -16,5 +16,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("UPDATE Client c SET c.status = false WHERE c.id = ?1")
     void delete(Long clientId);
     List<Client> findByStatusTrue();
-    UserDetails findByEmail(String email);
+    Client findByEmail(String email);
+
 }

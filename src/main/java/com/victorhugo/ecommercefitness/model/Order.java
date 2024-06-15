@@ -1,7 +1,9 @@
 package com.victorhugo.ecommercefitness.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.victorhugo.ecommercefitness.enums.Employee.OrderStage;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +36,7 @@ public class Order {
     private Employee employee;
 
     @Column(name = "data_pedido", nullable = false, length = 50)
+    @JsonFormat(pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
     private Date orderDate = new Date();
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})

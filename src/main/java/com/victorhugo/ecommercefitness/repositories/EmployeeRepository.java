@@ -18,5 +18,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     void delete(Long employeeId);
     List<Employee> findByStatusTrue();
 
-    UserDetails findByEmail(String email);
+    Employee findByEmail(String email);
 }

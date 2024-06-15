@@ -1,6 +1,7 @@
 package com.victorhugo.ecommercefitness.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,8 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "id_Comida")
+    @JsonIgnoreProperties(value = { "ingredients" ,"id_CategoryFood"})
+
     private Food food;
 
     @Column(name = "quantidade", nullable = false)
