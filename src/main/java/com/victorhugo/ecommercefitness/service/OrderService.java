@@ -40,6 +40,9 @@ public class OrderService {
         Optional<Order> obj = orderRepository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id,"Order"));
     }
+    public List<Order> findByClient(String email){
+        return orderRepository.findByEmailClient(email);
+    }
 
     @Transactional
     public Order create(Order order) {

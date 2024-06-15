@@ -35,6 +35,12 @@ public class OrderController {
         Order order = orderService.findById(id);
         return ResponseEntity.ok(order);
     }
+
+    @GetMapping("/client/{email}")
+    public ResponseEntity<List<Order>> findByClient(@PathVariable String email){
+        List<Order> order = orderService.findByClient(email);
+        return ResponseEntity.ok(order);
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order){
         Order updatedOrder = orderService.update(id, order);
