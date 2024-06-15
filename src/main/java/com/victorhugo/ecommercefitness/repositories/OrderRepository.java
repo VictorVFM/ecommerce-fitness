@@ -19,5 +19,12 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query("SELECT o FROM Order o JOIN Client c  ON o.client.id = c.id WHERE c.email = :email")
     List<Order> findByEmailClient(String email);
 
+    @Query("SELECT COUNT(o) " +
+            "FROM Order o " +
+            "WHERE YEAR(o.orderDate) = YEAR(CURRENT_DATE) " +
+            "GROUP BY MONTH(o.orderDate) " +
+            "ORDER BY MONTH(o.orderDate)")
+    List<Long> countOrdersByMonthInCurrentYear();
+
     List<Order> findByStatusTrue();
 }
