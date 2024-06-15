@@ -14,7 +14,8 @@ INSERT INTO cliente (nome, email, documento, telefone, senha, id_tipo, status) V
 
 UPDATE cliente SET email = 'carlos_novo@example.com' WHERE nome = 'Carlos Santos';
 
-
+INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
+VALUES('Veio da Lancha', 'M', '1990-05-14', '12242s9', 'admin@gmail.com', '644220', '$2a$10$gEy6LIjP9QXuPqvJV5HAculbeACnRyKkgoehWlzB/o8V4WikEfowa', 'ADMINISTRADOR', 1);
 INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, email, telefone, senha, funcao, status)
 VALUES ('João Silva', 'M', '1990-05-15', '12345678901', 'joao@example.com', '1122334455', 'senha123', 'ENTREGADOR', 1);
 
