@@ -20,8 +20,8 @@ public class DashboardController {
     private DashboardService dashboardService;
 
     @GetMapping
-    public ResponseEntity<List<Long>> findAll(){
-        List<Long> orders = dashboardService.countOrdersByMonthInCurrentYear();
+    public ResponseEntity<int[]> findAll(){
+        int[] orders = dashboardService.countOrdersByMonthInCurrentYear();
         return ResponseEntity.ok(orders);
     }
 }
