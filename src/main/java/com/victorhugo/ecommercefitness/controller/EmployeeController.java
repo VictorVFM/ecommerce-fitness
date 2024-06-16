@@ -50,6 +50,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Employee> update(@PathVariable Long id, @RequestBody Employee employee) {
+        employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
         employee = employeeService.update(id, employee);
         return ResponseEntity.ok().body(employee);
     }

@@ -6,7 +6,6 @@ import com.victorhugo.ecommercefitness.dto.RegisterClientDTO;
 import com.victorhugo.ecommercefitness.infra.security.TokenService;
 import com.victorhugo.ecommercefitness.model.Client;
 import com.victorhugo.ecommercefitness.model.ClientType;
-import com.victorhugo.ecommercefitness.model.Employee;
 import com.victorhugo.ecommercefitness.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +57,7 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client) {
+        client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
         client = clientService.update(id, client);
         return ResponseEntity.ok().body(client);
     }
