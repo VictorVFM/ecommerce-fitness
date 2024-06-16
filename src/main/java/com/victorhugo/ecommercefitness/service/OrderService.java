@@ -32,8 +32,8 @@ public class OrderService {
 
 
     public List<Order> findAll(){
-        List<Order> orders = orderRepository.findByStatusTrue();
-        return orderRepository.findByStatusTrue();
+        List<Order> orders = orderRepository.findByStatusTrueOrderByIdDesc();
+        return orderRepository.findByStatusTrueOrderByIdDesc();
     }
 
     public Order findById(Long id) {

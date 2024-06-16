@@ -26,5 +26,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
             "ORDER BY MONTH(o.orderDate)")
     List<Integer[]> countOrdersByMonthInCurrentYear();
 
+
+    List<Order> findByStatusTrueOrderByIdDesc();
     List<Order> findByStatusTrue();
 }
