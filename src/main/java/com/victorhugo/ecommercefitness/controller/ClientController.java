@@ -61,6 +61,13 @@ public class ClientController {
         client = clientService.update(id, client);
         return ResponseEntity.ok().body(client);
     }
+    @PutMapping("/email/{email}")
+    public ResponseEntity<Client> updateByEmail(@PathVariable String email, @RequestBody Client client) {
+        client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
+        client = clientService.findByEmail(email);
+        client = clientService.update(client.getId(), client);
+        return ResponseEntity.ok().body(client);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
