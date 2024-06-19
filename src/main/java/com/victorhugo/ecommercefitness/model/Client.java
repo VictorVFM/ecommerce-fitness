@@ -49,7 +49,6 @@ public class Client extends User implements UserDetails {
     @Column(name = "status", nullable = false)
     private Boolean status = true;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
 
