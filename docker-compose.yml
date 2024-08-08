@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: openjdk:17-jdk-slim
+    image: openjdk:17-jdk-alpine
     container_name: java_app_container
     volumes:
       - ./target:/app
